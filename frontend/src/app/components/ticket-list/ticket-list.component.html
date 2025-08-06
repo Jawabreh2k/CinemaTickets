@@ -1,0 +1,147 @@
+<div class="ticket-list-container fade-in">
+  <div class="page-header">
+    <div class="header-content">
+      <div class="header-left">
+        <mat-icon class="page-icon">confirmation_number</mat-icon>
+        <div class="header-text">
+          <h1 class="page-title">Cinema Tickets</h1>
+          <p class="page-subtitle">Manage and view all cinema ticket bookings</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button mat-raised-button color="primary" (click)="addTicket()" class="action-button">
+          <mat-icon>add</mat-icon>
+          <span>Add Ticket</span>
+        </button>
+        <button mat-raised-button color="accent" (click)="reserveTicket()" class="action-button">
+          <mat-icon>event_seat</mat-icon>
+          <span>Reserve Ticket</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <mat-card class="table-card">
+      <div class="table-container">
+        <table mat-table [dataSource]="tickets" class="ticket-table">
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>ID</th>
+            <td mat-cell *matCellDef="let ticket">
+              <span class="ticket-id">#{{ ticket.id }}</span>
+            </td>
+          </ng-container>
+
+          <!-- Movie Title Column -->
+          <ng-container matColumnDef="movieTitle">
+            <th mat-header-cell *matHeaderCellDef>Movie</th>
+            <td mat-cell *matCellDef="let ticket">
+              <div class="movie-info">
+                <mat-icon class="movie-icon">movie</mat-icon>
+                <span class="movie-title">{{ ticket.movieTitle }}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Customer Name Column -->
+          <ng-container matColumnDef="customerName">
+            <th mat-header-cell *matHeaderCellDef>Customer Name</th>
+            <td mat-cell *matCellDef="let ticket">
+              <div class="customer-info">
+                <mat-icon class="customer-icon">person</mat-icon>
+                <span>{{ ticket.customerName }}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Customer Email Column -->
+          <ng-container matColumnDef="customerEmail">
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let ticket">
+              <div class="email-info">
+                <mat-icon class="email-icon">email</mat-icon>
+                <span>{{ ticket.customerEmail }}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Seat Number Column -->
+          <ng-container matColumnDef="seatNumber">
+            <th mat-header-cell *matHeaderCellDef>Seat</th>
+            <td mat-cell *matCellDef="let ticket">
+              <div class="seat-info">
+                <mat-icon class="seat-icon">event_seat</mat-icon>
+                <span class="seat-number">{{ ticket.seatNumber }}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Price Column -->
+          <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef>Price</th>
+            <td mat-cell *matCellDef="let ticket">
+              <div class="price-info">
+                <mat-icon class="price-icon">attach_money</mat-icon>
+                <span class="price-amount">${{ ticket.price.toFixed(2) }}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Status Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let ticket">
+              <span class="status-badge" [class]="ticket.status.toLowerCase()">
+                <mat-icon class="status-icon">{{ getStatusIcon(ticket.status) }}</mat-icon>
+                {{ ticket.status }}
+              </span>
+            </td>
+          </ng-container>
+
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let ticket">
+              <div class="action-buttons">
+                <button
+                  mat-icon-button
+                  color="primary"
+                  (click)="editTicket(ticket)"
+                  matTooltip="Edit Ticket"
+                  class="action-btn"
+                >
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button
+                  mat-icon-button
+                  color="warn"
+                  (click)="deleteTicket(ticket)"
+                  matTooltip="Delete Ticket"
+                  class="action-btn"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns" class="table-row"></tr>
+        </table>
+
+        <div *ngIf="tickets.length === 0" class="no-data">
+          <div class="no-data-content">
+            <mat-icon class="no-data-icon">event_busy</mat-icon>
+            <h3>No tickets found</h3>
+            <p>Start by adding your first cinema ticket</p>
+            <button mat-raised-button color="primary" (click)="addTicket()">
+              <mat-icon>add</mat-icon>
+              Add First Ticket
+            </button>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

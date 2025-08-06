@@ -1,0 +1,29 @@
+<mat-toolbar color="primary" class="main-toolbar">
+  <div class="toolbar-content">
+    <div class="toolbar-left">
+      <mat-icon class="brand-icon">movie</mat-icon>
+      <span class="brand-title">{{ title }} </span>
+    </div>
+
+    <div class="toolbar-right">
+      <button mat-button routerLink="/tickets" class="nav-button">
+        <mat-icon>list</mat-icon>
+        <span class="button-text">Tickets</span>
+      </button>
+      <button mat-button routerLink="/tickets/add" class="nav-button">
+        <mat-icon>add</mat-icon>
+        <span class="button-text">Add Ticket</span>
+      </button>
+      <button mat-button routerLink="/tickets/reserve" class="nav-button">
+        <mat-icon>event_seat</mat-icon>
+        <span class="button-text">Reserve</span>
+      </button>
+    </div>
+  </div>
+</mat-toolbar>
+
+<main class="main-content">
+  <div class="content-wrapper">
+    <router-outlet />
+  </div>
+</main>
